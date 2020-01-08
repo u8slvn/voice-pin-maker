@@ -19,14 +19,14 @@ sounds = {
     'blank': AudioSegment.from_wav(f'{dir_path}/sounds/blank.wav'),
 }
 
-pin_code = random.sample(range(0, 9), 7)
+pin_code = list(map(str, random.sample(range(0, 9), 7)))
 
 voice_pin = None
 
 for number in pin_code:
     if not voice_pin:
-        voice_pin = sounds[str(number)] + sounds['blank']
+        voice_pin = sounds[number] + sounds['blank']
         continue
-    voice_pin = voice_pin + sounds[str(number)] + sounds['blank']
+    voice_pin = voice_pin + sounds[number] + sounds['blank']
 
-voice_pin.export("voice-pin.mp3", format="mp3")
+voice_pin.export(f'{"".join(pin_code)}.mp3', format='mp3')
